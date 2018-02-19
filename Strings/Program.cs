@@ -9,6 +9,18 @@ using System.Threading.Tasks;
 
 namespace Strings
 {
+
+    public enum UserTypes
+    {
+        StandardUser, VipUser, Moderator, Admin
+    }
+
+    public enum SupportedMathOperation
+    {
+        Plus, Minus
+    }
+
+
     class Program
     {
         static int GetMyAge()
@@ -102,14 +114,57 @@ namespace Strings
             ////Console.WriteLine(sb.ToString().Count());
 
 
-            string myString = "apple_tree";
+            //string myString = "apple_tree";
 
-            foreach (var item in myString)
+            //foreach (var item in myString)
+            //{
+            //    Console.WriteLine((int)item);
+            //}
+
+
+            //UserTypes userType = UserTypes.Admin;
+            //UserTypes secondUserType = UserTypes.Moderator;
+
+            //userType = UserTypes.Moderator;
+
+            //if(userType == UserTypes.Admin)
+            //{
+            //    Console.WriteLine("Hello aDMIN");
+            //}
+
+
+            string sourceInput = Console.ReadLine();
+            string encodedVersionOne = "", encodedVersionTwo = "", encodedVersionThree = "";
+            int rotateBaseValue = Int32.Parse(Console.ReadLine());
+
+            int[] asciiCode = new int[sourceInput.Length];
+
+            for(int i = 0; i < sourceInput.Length; i++)
             {
-                Console.WriteLine((int)item);
+                asciiCode[i] = (int)sourceInput[i];
+                encodedVersionOne += (char)(asciiCode[i] + rotateBaseValue);
+                encodedVersionTwo += (char)(asciiCode[i] + (i % 2 == 0 ? rotateBaseValue : -rotateBaseValue));
+                encodedVersionThree += (char)(asciiCode[i] + (i + 1));
+            }
+            Console.WriteLine(encodedVersionOne);
+            Console.WriteLine(encodedVersionTwo);
+            Console.WriteLine(encodedVersionThree);
+
+            char[] decodedVersionOne = new char[sourceInput.Length], 
+                decodedVersionTwo = new char[sourceInput.Length], 
+                decodedVersionThree = new char[sourceInput.Length];
+
+            for(int i = 0; i < sourceInput.Length; i++)
+            {
+                decodedVersionOne[i] = (char)(encodedVersionOne[i] - rotateBaseValue);
+                decodedVersionTwo[i] = (char)(encodedVersionTwo[i] - (i % 2 == 0 ? rotateBaseValue : -rotateBaseValue));
+                decodedVersionThree[i] = (char)(encodedVersionThree[i] - (i + 1));
             }
 
-        
+            Console.WriteLine(new string(decodedVersionOne));
+            Console.WriteLine(new string(decodedVersionTwo));
+            Console.WriteLine(new string(decodedVersionThree));
+
             Console.ReadLine();
         }
     }
